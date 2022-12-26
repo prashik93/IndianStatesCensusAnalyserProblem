@@ -3,12 +3,12 @@ package org.example;
 public class StateCensusAnalyserException {
     public static class CensusAnalyserException extends Exception
     {
-        enum ExceptionType
+        public enum ExceptionType
         {
             CENSUS_FILE_PROBLEM, UNABLE_TO_PARSE, INCORRECT_HEADER_OR_DELIMITER
         }
 
-        ExceptionType type;
+        public ExceptionType type;
 
         public CensusAnalyserException(String message, ExceptionType type)
         {
