@@ -75,4 +75,18 @@ public class CensusAnalyserTest {
             Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserException.ExceptionType.INCORRECT_HEADER_OR_DELIMITER, e.type);
         }
     }
+
+    @Test
+    public void givenIndianStateCSVFile_Returns_CorrectRecords() {
+        try {
+
+            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
+            int numOfRecords = stateCensusAnalyser.loadIndiaStateData(INDIAN_STATE_CSV_FILE);
+            Assertions.assertEquals(37, numOfRecords);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
