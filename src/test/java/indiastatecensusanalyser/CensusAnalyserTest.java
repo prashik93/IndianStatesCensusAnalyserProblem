@@ -9,6 +9,7 @@ import org.junit.rules.ExpectedException;
 public class CensusAnalyserTest {
     private static final String INDIAN_CENSUS_CSV_FILE_PATH = "E:\\Projects\\intellijProjects\\IndianStatesCensusAnalyserProblem\\src\\main\\java\\org\\example\\IndianStateCensusData.csv";
     private static final String WRONG_CSV_FILE_PATH = "E:\\Projects\\intellijProjects\\IndianStatesCensusAnalyserProblem\\src\\main\\java\\resources\\IndianStateCensusData.csv";
+    private static final String INDIAN_CENSUS_CSV_FILE_WITH_WRONG_FILE_TYPE = "E:\\Projects\\intellijProjects\\IndianStatesCensusAnalyserProblem\\src\\main\\java\\org\\example\\IndianStateCensusData.txt";
 
     @Test
     public void givenIndianCensusCSVFile_Returns_CorrectRecords() {
@@ -33,4 +34,18 @@ public class CensusAnalyserTest {
             Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
     }
+
+    @Test
+    public void givenIndianStateCensusCSVFile_WithWrongType_ShouldThrowException() {
+        try {
+            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(StateCensusAnalyserException.CensusAnalyserException.class);
+            stateCensusAnalyser.loadIndiaCensusData(INDIAN_CENSUS_CSV_FILE_WITH_WRONG_FILE_TYPE);
+        } catch (StateCensusAnalyserException.CensusAnalyserException e) {
+            System.out.println(e.getMessage());
+            Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE, e.type);
+        }
+    }
+
 }
