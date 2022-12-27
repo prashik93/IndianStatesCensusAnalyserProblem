@@ -46,6 +46,8 @@ public class StateCensusAnalyser {
             throw new StateCensusAnalyserException.CensusAnalyserException("File not present at the location", StateCensusAnalyserException.CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (IllegalStateException e) {
             throw new StateCensusAnalyserException.CensusAnalyserException("Invalid file type", StateCensusAnalyserException.CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
+        } catch (RuntimeException e) {
+            throw new StateCensusAnalyserException.CensusAnalyserException("Wrong Input, please refer the POJO class or the CSV file", StateCensusAnalyserException.CensusAnalyserException.ExceptionType.INCORRECT_HEADER_OR_DELIMITER);
         }
     }
 }
