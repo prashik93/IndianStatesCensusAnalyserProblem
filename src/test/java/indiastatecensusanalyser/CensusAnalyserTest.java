@@ -14,6 +14,7 @@ public class CensusAnalyserTest {
     private static final String INDIAN_STATE_CSV_FILE = "E:\\Projects\\intellijProjects\\IndianStatesCensusAnalyserProblem\\src\\main\\java\\org\\example\\IndianStateCode.csv";
     private static final String WRONG_STATE_CODE_CSV_FILE_PATH = "E:\\Projects\\intellijProjects\\IndianStatesCensusAnalyserProblem\\src\\main\\java\\resources\\IndianStateCode.csv";
     private static final String INDIAN_STATE_CODE_CSV_FILE_WITH_WRONG_TYPE = "E:\\Projects\\intellijProjects\\IndianStatesCensusAnalyserProblem\\src\\main\\java\\org\\example\\IndianStateCode.txt";
+    private static final String INDIAN_STATE_CODE_WITH_WRONG_DELIMITER = "E:\\Projects\\intellijProjects\\IndianStatesCensusAnalyserProblem\\src\\main\\java\\org\\example\\IndianStateCodeDelimiter.csv";
 
     @Test
     public void givenIndianCensusCSVFile_Returns_CorrectRecords() {
@@ -53,7 +54,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndianStateCensusCSVFile_WithWrongFileDelimiter_Should_ThrowException() {
+    public void givenIndianStateCensusCSVFile_WithWrongFileDelimiter_ShouldThrowException() {
         try {
             StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -114,6 +115,19 @@ public class CensusAnalyserTest {
         } catch (StateCensusAnalyserException.CensusAnalyserException e) {
             System.out.println(e.getMessage());
             Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE, e.type);
+        }
+    }
+
+    @Test
+    public void givenIndianStateCSVFile_WithWrongFileDelimiter_ShouldThrowException() {
+        try{
+            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(StateCensusAnalyserException.CensusAnalyserException.class);
+            stateCensusAnalyser.loadIndiaStateData(INDIAN_STATE_CODE_WITH_WRONG_DELIMITER);
+        } catch (StateCensusAnalyserException.CensusAnalyserException e) {
+            System.out.println(e.getMessage());
+            Assertions.assertEquals(StateCensusAnalyserException.CensusAnalyserException.ExceptionType.INCORRECT_HEADER_OR_DELIMITER, e.type);
         }
     }
 }
